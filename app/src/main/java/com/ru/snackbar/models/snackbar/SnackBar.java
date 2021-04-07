@@ -32,8 +32,8 @@ public class SnackBar {
     public int snackBarNum;
     private int mSnacksNum;
     private Status snackBarStatus;
-    private List<Student> mQueue;
-    private List<IProduct> currentProducts =  new ArrayList<>();
+    public List<Student> mQueue;
+    public List<IProduct> currentProducts =  new ArrayList<>();
     public SnackBar(int snackBarNum, int snacksNum){
         this.snackBarStatus = Status.INACTION;
         this.mSnacks = new TreeMap<>();
@@ -85,56 +85,40 @@ public class SnackBar {
     public Status getSnackBarStatus() {
         return snackBarStatus;
     }
-    public void start(Activity activity) {
-        ClientProcessing clientProcessing = new ClientProcessing(activity);
-        clientProcessing.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    public void start() {
+        new Thread(new ClientProcessing()).start();
     }
-    class ClientProcessing extends AsyncTask<Void, Void, Void> {
+    class ClientProcessing implements Runnable {
             List<Student> allQueue = new ArrayList<>();
-            Activity activity;
-            ClientProcessing(Activity activity){
-                this.activity = activity;
-            }
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            protected Void doInBackground(Void... voids) {
-                allQueue.addAll(mQueue);
-                for(Student student : allQueue){
-                    currentProducts.clear();
-                    currentProducts.addAll(student.getCart());
-                    snackBarStatus = SnackBar.Status.ACCEPTANCE_OF_ORDER;
-                    publishProgress();
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    snackBarStatus = SnackBar.Status.PAYMENT_FOR_THE_ORDER;
-                    publishProgress();
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    snackBarStatus = SnackBar.Status.ISSUING_AN_ORDER;
-                    publishProgress();
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    mQueue.remove(student);
-                    publishProgress();
+        @Override
+        public void run() {
+            allQueue.addAll(mQueue);
+            for(Student student : allQueue){
+                currentProducts.clear();
+                currentProducts.addAll(student.getCart());
+                snackBarStatus = SnackBar.Status.ACCEPTANCE_OF_ORDER;
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                snackBarStatus = SnackBar.Status.INACTION;
-                return null;
+                snackBarStatus = SnackBar.Status.PAYMENT_FOR_THE_ORDER;
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                snackBarStatus = SnackBar.Status.ISSUING_AN_ORDER;
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mQueue.remove(student);
             }
-
-            @Override
-            protected void onProgressUpdate(Void... values) {
-                ((MainActivity) activity).updateUI(snackBarNum);
-            }
+            snackBarStatus = SnackBar.Status.INACTION;
         }
+    }
 
     public List<Student> getQueue() {
         return mQueue;
@@ -149,5 +133,17 @@ public class SnackBar {
             list.add(item.getName());
         }
         return list;
+    }
+
+    public void setSnackBarStatus(Status snackBarStatus) {
+        this.snackBarStatus = snackBarStatus;
+    }
+
+    public int getSnackBarNum() {
+        return snackBarNum;
+    }
+
+    public void setSnackBarNum(int snackBarNum) {
+        this.snackBarNum = snackBarNum;
     }
 }

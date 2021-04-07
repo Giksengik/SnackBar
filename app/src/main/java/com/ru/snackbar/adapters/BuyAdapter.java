@@ -42,6 +42,7 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.ViewHolder> {
         return products.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         final TextView productName, productCost;
         ViewHolder(View v){
             super(v);

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Student {
+public class  Student {
     private List<IProduct> mCart;
     private String mName;
     public Student(String name){
