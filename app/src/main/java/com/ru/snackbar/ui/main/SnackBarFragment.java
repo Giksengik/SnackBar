@@ -64,7 +64,7 @@ public class SnackBarFragment extends Fragment {
             @Override
             public void onChanged(SnackBar snackBar) {
                 if (snackBar.getSnackBarStatus() == SnackBar.Status.INACTION) {
-                    automatName.setText(AUTOMAT_NAME + 1);
+                    automatName.setText(AUTOMAT_NAME);
                     customerName.setText("");
                     buyAdapter.setProducts(new ArrayList<>());
                     totalCost.setText("");

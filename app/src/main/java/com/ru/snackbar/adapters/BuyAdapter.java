@@ -36,6 +36,7 @@ public class BuyAdapter extends RecyclerView.Adapter<BuyAdapter.ViewHolder> {
     }
     public void setProducts(List<IProduct> products) {
         this.products = products;
+        notifyDataSetChanged();
     }
     @Override
     public int getItemCount() {
