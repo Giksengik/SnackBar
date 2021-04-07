@@ -1,4 +1,4 @@
-package com.ru.snackbar;
+package com.ru.snackbar.ui.main;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,15 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ru.snackbar.R;
 import com.ru.snackbar.adapters.BuyAdapter;
 import com.ru.snackbar.adapters.QueueAdapter;
 import com.ru.snackbar.models.Student;
 import com.ru.snackbar.models.products.IProduct;
 import com.ru.snackbar.models.snackbar.SnackBar;
+import com.ru.snackbar.ui.main.SnackBarViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

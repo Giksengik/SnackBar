@@ -1,14 +1,5 @@
 package com.ru.snackbar.models.snackbar;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.os.AsyncTask;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.ru.snackbar.MainActivity;
 import com.ru.snackbar.factories.BaguetteFactory;
 import com.ru.snackbar.factories.BountyFactory;
 import com.ru.snackbar.factories.CoffeeFactory;

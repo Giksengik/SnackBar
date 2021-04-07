@@ -1,4 +1,4 @@
-package com.ru.snackbar;
+package com.ru.snackbar.repositories;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

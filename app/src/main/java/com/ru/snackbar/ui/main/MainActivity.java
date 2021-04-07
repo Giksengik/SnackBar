@@ -1,18 +1,11 @@
-package com.ru.snackbar;
+package com.ru.snackbar.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
-import com.ru.snackbar.adapters.BuyAdapter;
-import com.ru.snackbar.adapters.QueueAdapter;
+import com.ru.snackbar.R;
 import com.ru.snackbar.models.Student;
-import com.ru.snackbar.models.products.IProduct;
-import com.ru.snackbar.models.snackbar.SnackBar;
 
 import java.util.ArrayList;
 import java.util.List;
