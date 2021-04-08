@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.ru.snackbar.models.Student;
+import com.ru.snackbar.models.products.Snack;
 import com.ru.snackbar.models.snackbar.SnackBar;
 
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public class SnackBarRepository {
         mSnackBar = new MutableLiveData<>();
         SnackBar snackBar = new SnackBar(5,100);
         snackBar.setQueue(queue);
+        mSnackBar.setValue(snackBar);
+    }
+    public void setSnackBar(SnackBar snackBar) {
         mSnackBar.setValue(snackBar);
     }
     public MutableLiveData<SnackBar> getSnackBar(){

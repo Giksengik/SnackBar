@@ -1,14 +1,17 @@
 package com.ru.snackbar.ui.main;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,28 +62,38 @@ public class SnackBarFragment extends Fragment {
         queueList.setLayoutManager(new LinearLayoutManager(getContext()));
         shoppingList.setAdapter(buyAdapter);
         queueList.setAdapter(queueAdapter);
-        mViewModel.getSnackBars().observe(getViewLifecycleOwner(), new Observer<SnackBar>() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onChanged(SnackBar snackBar) {
-                if (snackBar.getSnackBarStatus() == SnackBar.Status.INACTION) {
-                    automatName.setText(AUTOMAT_NAME);
-                    customerName.setText("");
-                    buyAdapter.setProducts(new ArrayList<>());
-                    totalCost.setText("");
-                    snackBarStatus.setText(INACTIVE_STATUS);
-                } else {
-                    if (snackBar.getQueue().size() != 0) {
-                        customerName.setText(snackBar.getQueue().get(0).getName());
-                    }
-                    buyAdapter.setProducts(snackBar.getCurrentProducts());
-                    totalCost.setText(getCost(snackBar.getCurrentProducts()) + " ");
-                    snackBarStatus.setText(chooseState(snackBar.getSnackBarStatus()));
-                    queueAdapter.setPersons(snackBar.getStudentsNameList());
+        if( getArguments() != null){
+            mViewModel.setSnackBar((SnackBar) getArguments().get("snackBar"));
+            ((MainActivity)getActivity()).makeContainersInvisible();
+        }
+        mViewModel.getSnackBars().observe(getViewLifecycleOwner(), snackBar -> {
+            if (snackBar.getSnackBarStatus() == SnackBar.Status.INACTION) {
+                automatName.setText(AUTOMAT_NAME);
+                customerName.setText("");
+                buyAdapter.setProducts(new ArrayList<>());
+                totalCost.setText("");
+                snackBarStatus.setText(INACTIVE_STATUS);
+            } else {
+                if (snackBar.getQueue().size() != 0) {
+                    customerName.setText(snackBar.getQueue().get(0).getName());
                 }
+                buyAdapter.setProducts(snackBar.getCurrentProducts());
+                totalCost.setText(getCost(snackBar.getCurrentProducts()) + " ");
+                snackBarStatus.setText(chooseState(snackBar.getSnackBarStatus()));
+                queueAdapter.setPersons(snackBar.getStudentsNameList());
+            }
 
-        }});
+    });
         mViewModel.startWorking();
+        ((ConstraintLayout)root.findViewById(R.id.snackBarContainer)).setOnClickListener((View.OnClickListener) v -> {
+            Fragment fullScreenFragment = new SnackBarFragment(new ArrayList<>());
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("snackBar", mViewModel.getSnackBars().getValue());
+            fullScreenFragment.setArguments(bundle);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.fullScreenContainer, fullScreenFragment, "fullScreenFragment")
+                    .commit();
+        });
         return root;
     }
 
@@ -107,4 +120,5 @@ public class SnackBarFragment extends Fragment {
         }
         return "";
     }
+
 }

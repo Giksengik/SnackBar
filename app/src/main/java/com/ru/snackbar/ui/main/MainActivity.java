@@ -3,6 +3,8 @@ package com.ru.snackbar.ui.main;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.ru.snackbar.R;
 import com.ru.snackbar.models.Student;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         students4.add(new Student("Ефимова София"));
         students4.add(new Student("Егоров Семён"));
         students4.add(new Student("Сергеев Никита"));
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment1, new SnackBarFragment(students1)).commit();
         getSupportFragmentManager().beginTransaction()
@@ -51,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.fragment3, new SnackBarFragment(students3)).commit();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment4, new SnackBarFragment(students4)).commit();
+    }
+    public void makeContainersInvisible() {
+        ((FrameLayout)findViewById(R.id.fragment1)).setVisibility(View.INVISIBLE);
+        ((FrameLayout)findViewById(R.id.fragment2)).setVisibility(View.INVISIBLE);
+        ((FrameLayout)findViewById(R.id.fragment3)).setVisibility(View.INVISIBLE);
+        ((FrameLayout)findViewById(R.id.fragment4)).setVisibility(View.INVISIBLE);
     }
 
 

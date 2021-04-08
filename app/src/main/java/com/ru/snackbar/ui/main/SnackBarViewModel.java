@@ -27,4 +27,5 @@ public class SnackBarViewModel extends AndroidViewModel {
     public void startWorking(){
         mSnackBarRepository.startWorking();
     }
+    public void setSnackBar(SnackBar snackBar) { mSnackBarRepository.setSnackBar(snackBar); }
 }

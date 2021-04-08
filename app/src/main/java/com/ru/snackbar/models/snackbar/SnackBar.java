@@ -13,12 +13,13 @@ import com.ru.snackbar.factories.WaterFactory;
 import com.ru.snackbar.models.Student;
 import com.ru.snackbar.models.products.IProduct;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
 
-public class SnackBar {
+public class SnackBar implements Serializable {
     private TreeMap<IProduct, Integer> mSnacks;
     public int snackBarNum;
     private int mSnacksNum;
