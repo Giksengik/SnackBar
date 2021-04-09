@@ -70,48 +70,11 @@ public class SnackBar implements Serializable {
     public void setQueue(List<Student> students){
         mQueue = students;
     }
-    public int getSnacksNum() {
-        return mSnacksNum;
-    }
+
 
     public Status getSnackBarStatus() {
         return snackBarStatus;
     }
-    public void start() {
-        new Thread(new ClientProcessing()).start();
-    }
-    class ClientProcessing implements Runnable {
-            List<Student> allQueue = new ArrayList<>();
-        @Override
-        public void run() {
-            allQueue.addAll(mQueue);
-            for(Student student : allQueue){
-                currentProducts.clear();
-                currentProducts.addAll(student.getCart());
-                snackBarStatus = SnackBar.Status.ACCEPTANCE_OF_ORDER;
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                snackBarStatus = SnackBar.Status.PAYMENT_FOR_THE_ORDER;
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                snackBarStatus = SnackBar.Status.ISSUING_AN_ORDER;
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                mQueue.remove(student);
-            }
-            snackBarStatus = SnackBar.Status.INACTION;
-        }
-    }
-
     public List<Student> getQueue() {
         return mQueue;
     }
@@ -131,11 +94,4 @@ public class SnackBar implements Serializable {
         this.snackBarStatus = snackBarStatus;
     }
 
-    public int getSnackBarNum() {
-        return snackBarNum;
-    }
-
-    public void setSnackBarNum(int snackBarNum) {
-        this.snackBarNum = snackBarNum;
-    }
 }
